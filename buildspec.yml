@@ -2,22 +2,27 @@ version: 0.2
 
 env:
   parameter-store:
-    DOCKER_REGISTRY_USERNAME: /myapp/docke-credential/username
-    DOCKER_REGISTRY_PASSWORD: /myapp/docker/password
+    DOCKER_REGISTRY_USERNAME: /myapp/docker-credentials/username
+    DOCKER_REGISTRY_PASSWORD: /myapp/docker-credentials/username
+    DOCKER_REGISTRY_URL: /myapp/docker-credentials/url
 
 phases:
+  install:
+    runtime-versions:
+      python: 3.14
 
   pre_build:
     commands:
-      - echo Logging into Docker Hub...
-      - echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+      - echo "Logging into Docker Hub..."
+      - pip install -r requirements.txt
+      - echo "$DOCKER_REGISTRY_PASSWORD" | docker login -u "$DOCKER_REGISTRY_USERNAME" --password-stdin "$DOCKER_REGISTRY_URL"
 
   build:
     commands:
       - echo Building Docker image...
-      - docker build -t $DOCKER_USERNAME/fastapi-demo:latest .
+      - docker build -t "$DOCKER_REGISTRY_URL/$DOCKER_REGISTRY_USERNAME/fastapi-demo:latest" .
 
   post_build:
     commands:
       - echo Pushing image...
-      - docker push $DOCKER_USERNAME/fastapi-demo:latest
+      - docker push "$DOCKER_REGISTRY_URL/$DOCKER_REGISTRY_USERNAME/fastapi-demo:latest"
