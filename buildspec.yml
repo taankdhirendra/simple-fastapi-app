@@ -1,0 +1,23 @@
+version: 0.2
+
+env:
+  parameter-store:
+    DOCKER_REGISTRY_USERNAME: /myapp/docke-credential/username
+    DOCKER_REGISTRY_PASSWORD: /myapp/docker/password
+
+phases:
+
+  pre_build:
+    commands:
+      - echo Logging into Docker Hub...
+      - echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+
+  build:
+    commands:
+      - echo Building Docker image...
+      - docker build -t $DOCKER_USERNAME/fastapi-demo:latest .
+
+  post_build:
+    commands:
+      - echo Pushing image...
+      - docker push $DOCKER_USERNAME/fastapi-demo:latest
