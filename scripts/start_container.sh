@@ -1,5 +1,5 @@
 #!/bin/bash
-set -euxo pipefail
+set -e
 
 IMAGE="taankdhirendra/fastapi-demo:latest"
 CONTAINER="fastapi-demo"
