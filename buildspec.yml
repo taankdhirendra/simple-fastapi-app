@@ -9,20 +9,26 @@ env:
 phases:
   install:
     runtime-versions:
-      python: 3.14
+      python: 3.11
 
   pre_build:
     commands:
-      - echo "Logging into Docker Hub..."
+      - echo "Installing dependencies..."
       - pip install -r requirements.txt
+
+      - echo "Logging into Docker Hub..."
       - echo "$DOCKER_REGISTRY_PASSWORD" | docker login -u "$DOCKER_REGISTRY_USERNAME" --password-stdin "$DOCKER_REGISTRY_URL"
 
   build:
     commands:
-      - echo Building Docker image...
+      - echo "Building Docker image..."
       - docker build -t "$DOCKER_REGISTRY_URL/$DOCKER_REGISTRY_USERNAME/fastapi-demo:latest" .
 
   post_build:
     commands:
-      - echo Pushing image...
+      - echo "Pushing Docker image..."
       - docker push "$DOCKER_REGISTRY_URL/$DOCKER_REGISTRY_USERNAME/fastapi-demo:latest"
+
+artifacts:
+  files:
+    - '**/*'
