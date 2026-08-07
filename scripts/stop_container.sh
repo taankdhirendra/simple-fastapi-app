@@ -1,4 +1,4 @@
 #!/bin/bash
-set -e
+set -euxo pipefail
 
 docker rm -f fastapi-demo || true
