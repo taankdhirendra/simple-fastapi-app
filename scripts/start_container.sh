@@ -4,6 +4,8 @@ set -e
 IMAGE="taankdhirendra/fastapi-demo:latest"
 CONTAINER="fastapi-demo"
 
+echo "$DOCKER_REGISTRY_PASSWORD" | docker login -u "$DOCKER_REGISTRY_USERNAME" --password-stdin
+
 echo "Pulling latest image..."
 docker pull $IMAGE
 
