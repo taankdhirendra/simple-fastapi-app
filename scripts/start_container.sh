@@ -16,7 +16,7 @@ docker rm $CONTAINER || true
 echo "Starting new container..."
 docker run -d \
   --name $CONTAINER \
-  -p 80:8000 \
+  -p 8000:8000 \
   --restart unless-stopped \
   $IMAGE
 
