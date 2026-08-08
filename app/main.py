@@ -11,7 +11,7 @@ app = FastAPI(
 @app.get("/")
 def home():
     return {
-        "message": "Welcome to FastAPI running on AWS!",
+        "message": "Welcome to FastAPI running on AWS! using AWS CICD""
         "hostname": socket.gethostname(),
         "environment": os.getenv("ENV", "development")
     }
