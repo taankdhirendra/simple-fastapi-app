@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-IMAGE="taankdhirendra/fastapi-demo:latest"
+IMAGE="dhirendrataank/fastapi-demo:latest"
 CONTAINER="fastapi-demo"
 
 echo "Pulling latest image..."
