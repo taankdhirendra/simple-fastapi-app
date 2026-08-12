@@ -11,7 +11,7 @@ app = FastAPI(
 @app.get("/")
 def home():
     return {
-        "message": "Welcome to FastAPI running on AWS! Create By Demo",
+        "message": "Welcome to FastAPI running on AWS! Create By Sample",
         "hostname": socket.gethostname(),
         "environment": os.getenv("ENV", "development")
     }
